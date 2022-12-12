@@ -171,6 +171,7 @@ class CdkLambdaPythonStack(Stack):
                 "MAIN_URL": "https://data.cms.gov/provider-characteristics/medicare-provider-supplier-enrollment/medicare-fee-for-service-public-provider-enrollment",
                 "S3_BUCKET_NAME": self.bucket.bucket_name,
                 "OUTPUT_FOLDER": "/tmp/files",
+                "TOTAL_SECONDS_TO_WAIT_IN_DOWNLOAD": "240",
                 "FROM_EMAIL": "san99tiagodevsecops2@gmail.com",
                 "TO_EMAILS_LIST": "san99tiagodevsecops@gmail.com,san99tiagodevsecops2@gmail.com",
                 "SES_CONFIG_SET_NAME": "npi-emails",
@@ -178,8 +179,8 @@ class CdkLambdaPythonStack(Stack):
             description="Lambda Docker-Python function for {}".format(self.main_resources_name),
             role=self.lambda_role,
             timeout=Duration.minutes(8),
-            memory_size=1024,
-            ephemeral_storage_size=Size.mebibytes(2048),
+            memory_size=5120,
+            ephemeral_storage_size=Size.mebibytes(5120),
         )
 
         self.docker_lambda_function.add_alias(self.deployment_environment)

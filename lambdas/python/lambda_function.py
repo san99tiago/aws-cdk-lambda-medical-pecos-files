@@ -18,8 +18,9 @@ import send_emails_ses
 
 ################################################################################
 # GLOBAL VARIABLES TO CONFIGURE SOLUTION
-# CHROME DRIVER PATH
+# SELENIUM CONFIGURATIONS
 CHROME_DRIVER_PATH = "/opt/chromedriver"
+TOTAL_SECONDS_TO_WAIT_IN_DOWNLOAD = int(os.environ.get("TOTAL_SECONDS_TO_WAIT_IN_DOWNLOAD"))
 
 # URL SITE CONFIGURATIONS
 MAIN_URL = os.environ.get("MAIN_URL")
@@ -158,7 +159,7 @@ def handler(event, context):
 
             main_download_button.click()
 
-            waiter.simple_wait(180)
+            waiter.simple_wait(TOTAL_SECONDS_TO_WAIT_IN_DOWNLOAD)
 
             print("already_downloaded_files: ", glob.glob("{}/*".format(OUTPUT_FOLDER)))
 
