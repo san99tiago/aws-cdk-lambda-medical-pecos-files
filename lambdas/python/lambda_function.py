@@ -6,8 +6,6 @@ from sys import platform
 
 # External imports
 from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service
-# from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
 # Own dependencies
@@ -26,7 +24,7 @@ TOTAL_SECONDS_TO_WAIT_IN_DOWNLOAD = int(os.environ.get("TOTAL_SECONDS_TO_WAIT_IN
 MAIN_URL = os.environ.get("MAIN_URL")
 
 # AWS CONFIGURATIONS
-S3_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME")  # "<ACCOUNT_NUMBER>-pecos-prod-cms-files"
+S3_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME")  # "pecos-quarterly-data-<ACCOUNT_NUMBER>"
 OUTPUT_FOLDER = os.environ.get("OUTPUT_FOLDER")  # "/tmp/files"
 
 # EMAIL CONFIGURATIONS
@@ -69,7 +67,6 @@ else:
     exit()
 
 # Must enable JavaScript to run driver on this target page
-# driver = webdriver.Chrome(CHROME_DRIVER_PATH, service=Service(ChromeDriverManager().install()), options=chrome_options)
 driver = webdriver.Chrome(CHROME_DRIVER_PATH, options=chrome_options)
 
 
@@ -149,6 +146,7 @@ def handler(event, context):
 
             waiter.simple_wait()
 
+            # Click all "checkbox" elements and then click main download button
             for i in range(len(checkbox_items)):
                 print("Clicking element: ", checkbox_items[i])
                 checkbox_items[i].click()
